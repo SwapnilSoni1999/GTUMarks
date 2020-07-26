@@ -1,0 +1,25 @@
+{
+  "name": "gtumarks",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "export": "nuxt export",
+    "serve": "nuxt serve",
+    "db": "mongod --directoryperdb --dbpath ./db"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.11.0",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "bootstrap-vue": "^2.15.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.0",
+    "helmet": "^3.23.3",
+    "mongoose": "^5.9.25",
+    "nuxt": "^2.13.0"
+  },
+  "devDependencies": {}
+}
