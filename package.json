@@ -7,8 +7,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "export": "nuxt export",
-    "serve": "nuxt serve",
-    "db": "mongod --directoryperdb --dbpath ./db"
+    "serve": "nuxt serve"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
