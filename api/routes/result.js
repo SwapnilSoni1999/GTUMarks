@@ -1,16 +1,20 @@
 const { Router } = require('express')
-const qs = require('querystring')
 
-const GetResult = require('../../utils/getResult')
+const GTUResult = require('../../utils/gtuResult')
 
 const router = Router()
 
-router.get('/', async (req, res, next) => {
-    // const { enrollment, examId } = req.body
-    const enrollment = '150670119596'
-    const examId = '2389'
-    const result = await GetResult.fromEnrollment(enrollment, examId)
-    res.json(result)
+router.post('/', async (req, res, next) => {
+    try {
+        const { enrollment, examId } = req.body
+        const result = await GTUResult.fromEnrollment(enrollment, examId)
+        res.json(result)
+    } catch (err) {
+        console.log(err)
+        res.status(503).json({ message: "Internal server error!" })
+    }
 })
+
+router.post('')
 
 module.exports = router

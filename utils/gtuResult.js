@@ -1,8 +1,10 @@
 const axios = require('axios').default
 const qs = require('querystring')
 
-class Result {
-    constructor() { }
+const hostUrl = "http://ws-gtur.gtu.ac.in/fetchapps/fetchApplications"
+
+class GTUResult {
+    constructor() {}
 
     static async _generateDeviceId() {
         const lower = "abcdefghijklmnopqrstuvwxyz"
@@ -35,7 +37,7 @@ class Result {
         }
         const res = await axios({
             method: 'POST',
-            url: 'http://ws-gtur.gtu.ac.in/fetchapps/fetchApplications',
+            url: hostUrl,
             headers: headers,
             data: qs.stringify(payload),
             responseType: 'json'
@@ -69,6 +71,7 @@ class Result {
         return data
     }
 
+    // TO USE
     static async fromEnrollment(enrollment, examId) {
         const headers = {
             'Password': 'convo@2013',
@@ -92,7 +95,7 @@ class Result {
         }
         const res = await axios({
             method: 'POST',
-            url: 'http://ws-gtur.gtu.ac.in/fetchapps/fetchApplications',
+            url: hostUrl,
             headers: headers,
             data: qs.stringify(data),
             responseType: 'json'
@@ -147,6 +150,54 @@ class Result {
             console.log("Found some issues maybe!")
         }
     }
+
+    // TO USE
+    static async getSession() {
+        const headers = {
+            'Password': 'convo@2013',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Host': 'ws-gtur.gtu.ac.in',
+            'Connection': 'Keep-Alive',
+            'Accept-Encoding': 'gzip',
+            'User-Agent': 'okhttp/2.7.2',
+        }
+        const data = {
+            'ReqOperation': 'GetSession'
+        }
+        const res = await axios({
+            method: 'POST',
+            url: hostUrl,
+            headers: headers,
+            data: qs.stringify(data),
+            responseType: 'json'
+        })
+        return res.data
+    }
+
+    // TO USE
+    static async getCourse(examSession) {
+        const headers = {
+            'Password': 'convo@2013',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Host': 'ws-gtur.gtu.ac.in',
+            'Connection': 'Keep-Alive',
+            'Accept-Encoding': 'gzip',
+            'User-Agent': 'okhttp/2.7.2',
+        }
+        const data = {
+            'ReqOperation': 'GetCourse',
+            'ExSession': examSession
+        }
+
+        const res = await axios({
+            method: 'POST',
+            url: hostUrl,
+            headers: headers,
+            data: qs.stringify(data),
+            responseType: 'json'
+        })
+        return res.data
+    }
 }
 
-module.exports = Result
+module.exports = GTUResult
