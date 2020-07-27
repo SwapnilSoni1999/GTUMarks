@@ -98,7 +98,50 @@ class Result {
             responseType: 'json'
         })
         if (res.status == 200 || res.status == 201) {
-            return this._populateResult(res.data, enrollment, examId)
+            // formatting data
+
+            // declaration date
+            const fullResult = await this._populateResult(res.data, enrollment, examId)
+            fullResult.DECLARATIONDATE = new Date(fullResult.DECLARATIONDATE)
+            
+            // semester
+            fullResult.sem = Number(fullResult.sem)
+
+            // branch code
+            fullResult.BR_CODE = Number(fullResult.BR_CODE)
+
+            // rename MAP_NUMBER to enrollment
+            fullResult.enrollment = fullResult.MAP_NUMBER
+            delete fullResult.MAP_NUMBER
+
+            // total backlog
+            fullResult.TOTBACKL = Number(fullResult.TOTBACKL)
+
+            // current backlog
+            fullResult.CURBACKL = Number(fullResult.CURBACKL)
+
+            // SPI
+            fullResult.SPI = Number(fullResult.SPI)
+
+            // CPI
+            fullResult.CPI = Number(fullResult.CPI)
+
+            // CGPA
+            fullResult.CGPA = Number(fullResult.CGPA)
+
+            // TRIAL
+            fullResult.TRIAL = Number(fullResult.TRIAL)
+
+            // IsREcheck
+            // fullResult.IsREcheck (do it later)
+
+            // IsReass
+            // fullResult.IsReass
+
+            // RTI
+            // fix later
+
+            return fullResult
         } else {
             console.log(res.data)
             console.log("Found some issues maybe!")
