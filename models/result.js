@@ -21,7 +21,7 @@ const ResultSchema = new Schema({
     sem: { type: Number, required: true },
     name: { type: String, require: true },
     CourseName: { type: String, required: true },
-    ExamNumber: { type: String, required: true, unique: true },
+    ExamNumber: { type: String, required: true, unique: true }, // examId
     BR_CODE: { type: Number },
     TOTBACKL: { type: Number },
     CURBACKL: { type: Number },
@@ -47,4 +47,4 @@ const ResultSchema = new Schema({
     subjects: { type: [Subjects], required: true }
 }, { timestamps: true })
 
-
+module.exports = mongoose.model('Result', ResultSchema, 'result')

@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(helmet())
 app.use(mongoSanitize())
 
-mongoose.connect('mongodb://localhost:27017/Result', {
+mongoose.connect('mongodb://localhost:27017/GTU', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     autoIndex: true,

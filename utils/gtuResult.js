@@ -26,15 +26,6 @@ class GTUResult {
     }
 
     static async _subResult(enrollment, examId, subjectCode) {
-        const headers = {
-            'Password': 'convo@2013',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': '92',
-            'Host': 'ws-gtur.gtu.ac.in',
-            'Connection': 'Keep-Alive',
-            'Accept-Encoding': 'gzip',
-            'User-Agent': 'okhttp/2.7.2',
-        }
         const payload = {
             'ReqOperation': 'ViewSubjectGrade',
             'ExamID': String(examId),
