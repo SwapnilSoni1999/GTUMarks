@@ -3,6 +3,8 @@ const helmet = require('helmet')
 const mongoose = require('mongoose')
 const mongoSanitize = require('express-mongo-sanitize')
 
+const resultRoute = require('./routes/result')
+
 const app = express()
 
 app.use(express.json())
@@ -19,7 +21,9 @@ mongoose.connect('mongodb://localhost:27017/Result', {
    .then(() => console.log("Established connection to Database!"))
    .catch(() => console.log('Error while establishing connection to Database!'))
 
-   
+
+app.use('/result', resultRoute)
+
 module.exports = app
 
 // Start standalone server if directly running

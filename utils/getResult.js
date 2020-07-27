@@ -1,21 +1,22 @@
 const axios = require('axios').default
+const qs = require('querystring')
 
 class Result {
-    constructor() {}
+    constructor() { }
 
-    async generateDeviceId() {
+    static async _generateDeviceId() {
         const lower = "abcdefghijklmnopqrstuvwxyz"
         const upper = lower.toUpperCase()
         const digits = "1234567890"
         const chars = lower + upper + digits
         let result = ''
-        for (let i=0; i<16; i++) {
+        for (let i = 0; i < 16; i++) {
             result += chars.charAt(Math.floor(Math.random() * chars.length))
         }
         return result
     }
 
-    async subResult(enrollment, examId, subjectCode) {
+    static async _subResult(enrollment, examId, subjectCode) {
         const headers = {
             'Password': 'convo@2013',
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -36,16 +37,16 @@ class Result {
             method: 'POST',
             url: 'http://ws-gtur.gtu.ac.in/fetchapps/fetchApplications',
             headers: headers,
-            data: payload,
+            data: qs.stringify(payload),
             responseType: 'json'
         })
-        return res.data
+        return res.data[0]
     }
 
-    async populateResult(data, enrollment, examId) {
+    static async _populateResult(data, enrollment, examId) {
         data = data[0]
         const subjectCodes = []
-        for (let i=0; i<16; i++) {
+        for (let i = 0; i < 16; i++) {
             if (data['SUB' + i.toString()] != "") {
                 const subCode = data['SUB' + i.toString()]
                 subjectCodes.push(subCode)
@@ -62,7 +63,7 @@ class Result {
         }
         const subjectResults = []
         for (let sc of subjectCodes) {
-            subjectResults.push(await this.subResult(enrollment, examId, sc))
+            subjectResults.push(await this._subResult(enrollment, examId, sc))
         }
         data.subjects = subjectResults
         return data
@@ -81,7 +82,7 @@ class Result {
             'ReqOperation': 'StudentResult',
             'ExamID': String(examId),
             'EnrNo': String(enrollment),
-            'DeviceId': await generateDeviceId(),
+            'DeviceId': await this._generateDeviceId(),
             'OSversion': '29',
             'LatLong': '0',
             'MobileNo': '916929696969',
@@ -93,14 +94,16 @@ class Result {
             method: 'POST',
             url: 'http://ws-gtur.gtu.ac.in/fetchapps/fetchApplications',
             headers: headers,
-            data: data,
+            data: qs.stringify(data),
             responseType: 'json'
         })
         if (res.status == 200 || res.status == 201) {
-            return populateResult()
+            return this._populateResult(res.data, enrollment, examId)
         } else {
             console.log(res.data)
             console.log("Found some issues maybe!")
         }
     }
 }
+
+module.exports = Result
