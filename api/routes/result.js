@@ -15,6 +15,4 @@ router.post('/', async (req, res, next) => {
     }
 })
 
-router.post('')
-
 module.exports = router

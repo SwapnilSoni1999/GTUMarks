@@ -6,7 +6,6 @@ const router = Router()
 router.post('/', async (req, res, next) => {
     try {
         const { examSession, examType } = req.body
-        console.log(examSession, examType)
         const response = await GTUResult.getExam(examSession, examType)
         res.json(response)
     } catch (err) {
