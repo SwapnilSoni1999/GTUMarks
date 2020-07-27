@@ -6,6 +6,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const resultRoute = require('./routes/result')
 const sessionsRoute = require('./routes/sessions')
 const courseRoute = require('./routes/course')
+const examRoute = require('./routes/exam')
 
 const app = express()
 
@@ -27,6 +28,7 @@ mongoose.connect('mongodb://localhost:27017/Result', {
 app.use('/result', resultRoute)
 app.use('/sessions', sessionsRoute)
 app.use('/course', courseRoute)
+app.use('/exam', examRoute)
 
 module.exports = app
 

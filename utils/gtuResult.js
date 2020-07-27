@@ -2,7 +2,14 @@ const axios = require('axios').default
 const qs = require('querystring')
 
 const hostUrl = "http://ws-gtur.gtu.ac.in/fetchapps/fetchApplications"
-
+const defaultHeaders = {
+    'Password': 'convo@2013',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Host': 'ws-gtur.gtu.ac.in',
+    'Connection': 'Keep-Alive',
+    'Accept-Encoding': 'gzip',
+    'User-Agent': 'okhttp/2.7.2',
+}
 class GTUResult {
     constructor() {}
 
@@ -38,7 +45,7 @@ class GTUResult {
         const res = await axios({
             method: 'POST',
             url: hostUrl,
-            headers: headers,
+            headers: defaultHeaders,
             data: qs.stringify(payload),
             responseType: 'json'
         })
@@ -73,14 +80,7 @@ class GTUResult {
 
     // TO USE
     static async fromEnrollment(enrollment, examId) {
-        const headers = {
-            'Password': 'convo@2013',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Host': 'ws-gtur.gtu.ac.in',
-            'Connection': 'Keep-Alive',
-            'Accept-Encoding': 'gzip',
-            'User-Agent': 'okhttp/2.7.2',
-        }
+        
         const data = {
             'ReqOperation': 'StudentResult',
             'ExamID': String(examId),
@@ -96,7 +96,7 @@ class GTUResult {
         const res = await axios({
             method: 'POST',
             url: hostUrl,
-            headers: headers,
+            headers: defaultHeaders,
             data: qs.stringify(data),
             responseType: 'json'
         })
@@ -153,21 +153,14 @@ class GTUResult {
 
     // TO USE
     static async getSession() {
-        const headers = {
-            'Password': 'convo@2013',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Host': 'ws-gtur.gtu.ac.in',
-            'Connection': 'Keep-Alive',
-            'Accept-Encoding': 'gzip',
-            'User-Agent': 'okhttp/2.7.2',
-        }
+        
         const data = {
             'ReqOperation': 'GetSession'
         }
         const res = await axios({
             method: 'POST',
             url: hostUrl,
-            headers: headers,
+            headers: defaultHeaders,
             data: qs.stringify(data),
             responseType: 'json'
         })
@@ -176,14 +169,7 @@ class GTUResult {
 
     // TO USE
     static async getCourse(examSession) {
-        const headers = {
-            'Password': 'convo@2013',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Host': 'ws-gtur.gtu.ac.in',
-            'Connection': 'Keep-Alive',
-            'Accept-Encoding': 'gzip',
-            'User-Agent': 'okhttp/2.7.2',
-        }
+        
         const data = {
             'ReqOperation': 'GetCourse',
             'ExSession': examSession
@@ -192,7 +178,24 @@ class GTUResult {
         const res = await axios({
             method: 'POST',
             url: hostUrl,
-            headers: headers,
+            headers: defaultHeaders,
+            data: qs.stringify(data),
+            responseType: 'json'
+        })
+        return res.data
+    }
+    
+    // TO USE
+    static async getExam(examSession, examType) {
+        const data = {
+            'ReqOperation': 'GetExamName',
+            'ExSession': examSession,
+            'ExType': examType
+        }
+        const res = await axios({
+            method: 'POST',
+            url: hostUrl,
+            headers: defaultHeaders,
             data: qs.stringify(data),
             responseType: 'json'
         })
