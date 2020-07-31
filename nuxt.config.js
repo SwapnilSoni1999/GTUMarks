@@ -22,7 +22,8 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { href: 'https://fonts.googleapis.com/css?family=Muli', type: 'fonts', rel: 'stylesheet' }
     ]
   },
   /*
@@ -35,6 +36,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    { src: '~/plugins/axios.js' }
   ],
   /*
   ** Auto import components
@@ -54,18 +56,21 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    // Doc: https://github.com/nuxt-community/proxy-module
+    '@nuxtjs/proxy'
   ],
-  /*
-  ** Server Middleware
-  */
-  serverMiddleware: {
-    '/api': '~/api'
-  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:5000'
+    }
+  },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/

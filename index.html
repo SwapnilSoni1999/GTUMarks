@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+</head>
+
+<style type="text/css">
+  html{
+    scroll-behavior: smooth;
+  }
+  body{
+    font-family: Muli;  
+  }
+  .form-control:focus{
+    box-shadow: 0 0 2px 2px #5f5d5d75;
+    border: none;
+  }
+  @media (min-width: 1200px){
+  .container {
+      max-width: 1240px;
+  }
+  }
+  /** First Sec **/
+  
+  .mysec{
+    padding: 20px 0 ;
+    background: #fff;
+    position: relative;
+  }
+  .mysec .row{
+    align-items: center;
+  }
+  .mysec .head{
+    text-align: left;
+    font-weight: 800;
+    color: #271572;
+    font-size: 32px;
+  }
+  .search_contain{
+    margin-top: 60px;
+  }
+  .search {
+    max-width: 600px;
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px -4px rgba(0,0,0,0.25);
+    padding: 25px;
+    display: block;
+    margin: 0 auto;
+  }
+  .search h2{
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .search .input-group-text{
+    min-width: 100px;
+  }
+  .search .my_btn{
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    background: #bb3026;
+    color: #fff;
+  }
+
+  /*Student Info*/
+  .student_info{
+    margin-top: 60px;
+  }
+  .student_info .box{
+    border-radius: 10px;
+    box-shadow: 0 5px 20px -4px rgba(0,0,0,0.25);
+    padding: 25px;
+  }
+  .student_info h2{
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .student_info .student_data{
+    background: #fff;
+    border: none;
+  }
+
+  .table_wrapper{
+    margin: 60px 0;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 5px 20px -4px rgba(0,0,0,0.25);
+    border-radius: 10px;
+  }
+  .result_table th,.result_table td{
+    border-top: 0;
+  }
+  .result_table td> table td,.result_table th> table td {
+    border: none;
+    padding: 0 0.75rem !important;
+  }
+  .result_table td> table tr, .result_table th> table tr {
+    background-color: transparent !important;
+  }
+
+</style>
+
+
+<div class="jumbotron mysec">
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-3 text-right"><img src="http://gturesults.in/Images/logo.png"></div>
+      <div class="col-9" ><h1 class="head">Gujarat Technological University Ahmedabad
+</h1></div>
+    </div>
+
+    <!-- Search Box  -->
+    <div class="row search_contain">
+      <div class="col">
+        <div class="search">
+          <h2> <i class="fa fa-search" aria-hidden="true"></i> SEARCH RESULT :</h2>
+          <!-- Session -->
+          <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="session">Session</label>
+            </div>
+            <select class="custom-select" id="session">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <!-- Exam -->
+          <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="exams">Exam</label>
+            </div>
+            <select class="custom-select" id="exams">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <!-- Enrollment -->
+           <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text">Enroll No.</label>
+            </div>
+            <input type="text" class="form-control">
+          </div>
+          <div class="text-center">Or</div>
+          <!-- Seat Number -->
+           <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text">Seat No.</label>
+            </div>
+            <input type="text" class="form-control">
+          </div>
+          <!-- Search Button -->
+          <div class="text-center">
+            <button class="btn my_btn"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Info Box  -->
+    <div class="row student_info">
+      <div class="col">
+        <div class="box">
+          <h2> Student Info :</h2>
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- Student Name -->
+              <div class="input-group my-3">
+                <div>
+                  <label class="input-group-text" for="session">Name</label>
+                </div>
+                <input type="text" class="form-control student_data" value="Md Saban" disabled>
+              </div>
+              <!-- Exam Name -->
+              <div class="input-group my-3">
+                <div>
+                  <label class="input-group-text" for="session">Exam</label>
+                </div>
+                <input type="text" class="form-control student_data" value="BE SEM 6 - Regular (MAY 2020)" disabled>
+              </div>
+              <!-- Branch Name -->
+              <div class="input-group my-3">
+                <div>
+                  <label class="input-group-text" for="session">Branch</label>
+                </div>
+                <input type="text" class="form-control student_data" value="  INFORMATION TECHNOLOGY" disabled>
+              </div>
+            </div>  
+            <div class="col-sm-6">
+              <!-- Enroll Number -->
+              <div class="input-group my-3">
+                <div>
+                  <label class="input-group-text" for="session">Enroll No.</label>
+                </div>
+                <input type="text" class="form-control student_data" value="123456789" disabled>
+              </div>
+              <!-- Seat Number -->
+              <div class="input-group my-3">
+                <div>
+                  <label class="input-group-text" for="session">Seat No.</label>
+                </div>
+                <input type="text" class="form-control student_data" value="seat1234" disabled>
+              </div>
+               <!-- Declare On -->
+              <div class="input-group my-3">
+                <div>
+                  <label class="input-group-text" for="session">Declared On</label>
+                </div>
+                <input type="text" class="form-control student_data" value="03 Jul 2020" disabled>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Result Table -->
+    <div class="table_wrapper">
+      <table class="table table-striped result_table">
+        <thead>
+          <tr>
+            <th scope="col">SUBJECT CODE</th>
+            <th scope="col">SUBJECT NAME</th>
+            <th scope="col">ESE ABSENT</th>
+            <th scope="col">
+              Theory Grade
+              <table>
+                <tbody>
+                  <tr>
+                    <td>ESE</td>
+                    <td>PA</td>
+                    <td>TOTAL</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </th>
+            <th scope="col">
+              Practical Grade
+              <table>
+                <tbody>
+                  <tr>
+                    <td>ESE</td>
+                    <td>PA</td>
+                    <td>TOTAL</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </th>
+            <th scope="col">Subject Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <th scope="row">2160001 </th>
+            <td>Software Engineering  </td>
+            <td>-</td>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>BC</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </td>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>BC</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </td>
+            <td>AA</td>
+          </tr>
+
+           <tr>
+            <th scope="row">2160001 </th>
+            <td>Software Engineering  </td>
+            <td>-</td>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>BC</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </td>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>BC</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </td>
+            <td>AA</td>
+          </tr>
+
+           <tr>
+            <th scope="row">2160001 </th>
+            <td>Software Engineering  </td>
+            <td>-</td>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>BC</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </td>
+            <td>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>BC</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                  </tr>
+                </tbody>
+              </table> 
+            </td>
+            <td>AA</td>
+          </tr>
+         
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+</html>
