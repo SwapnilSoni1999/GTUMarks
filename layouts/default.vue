@@ -11,6 +11,19 @@ html {
 body {
   font-family: Muli;
 }
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;              /* width of the entire scrollbar */
+}
+::-webkit-scrollbar-track {
+  background: transparent;        /* color of the tracking area */
+}
+::-webkit-scrollbar-thumb {
+  background-color: gray;    /* color of the scroll thumb */
+  border-radius: 10px;       /* roundness of the scroll thumb */
+  border: 1px solid gray;  /* creates padding around scroll thumb */
+}
+
 .form-control:focus {
   box-shadow: 0 0 2px 2px #5f5d5d75;
   border: none;

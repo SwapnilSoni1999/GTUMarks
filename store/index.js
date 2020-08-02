@@ -49,6 +49,9 @@ export const actions = {
 }
 
 export const getters = {
+    gotResult(state) {
+        return Object.keys(state.resultData).length !== 0
+    },
     studentName(state) {
         return state.resultData.name
     },

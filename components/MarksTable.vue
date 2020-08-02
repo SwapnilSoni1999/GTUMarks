@@ -1,5 +1,5 @@
 <template>
-  <div class="table_wrapper">
+  <div v-if="gotResult" class="table_wrapper">
     <table class="table table-striped result_table">
       <thead>
         <tr>
@@ -7,7 +7,7 @@
           <th scope="col">SUBJECT NAME</th>
           <th scope="col">ESE ABSENT</th>
           <th scope="col">
-            Theory Grade
+            <span class="shift-td">Theory Grade</span>
             <table>
               <tbody>
                 <tr>
@@ -19,7 +19,7 @@
             </table>
           </th>
           <th scope="col">
-            Practical Grade
+            <span class="shift-td">Practical Grade</span>
             <table>
               <tbody>
                 <tr>
@@ -125,3 +125,30 @@
   </div>
 </template>
 
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters({
+      gotResult: 'gotResult'
+    })
+  }
+}
+</script>
+
+<style scoped>
+table {
+  text-align: center;
+}
+
+::-webkit-scrollbar:vertical {
+  display: none;
+}
+
+@media (min-width: 1200px){
+  .shift-td {
+    display: block;
+    padding-right: 20%;
+  }
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="row student_info">
+  <div class="row student_info" v-if="gotResult">
     <div class="col">
       <div class="box">
         <h2>Student Info :</h2>
@@ -76,7 +76,8 @@ export default {
       studentBranch: 'studentBranch',
       enrollment: 'enrollment',
       seatNo: 'seatNo',
-      declared: 'declared'
+      declared: 'declared',
+      gotResult: 'gotResult'
     }),
     declareDate() {
       return this.declared
