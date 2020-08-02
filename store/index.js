@@ -1,7 +1,7 @@
 export const state = () => ({
     ticket: '',
-    publicKey: "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCF7Sh46Nn0veiDrSIuEq7b8MI1QFMNH/Ec8vEp83rUK1msBBnc3Ohi3nXypSQffcf8rND4BTCTEE2jXKIvzjJ5yVpg8d0bFn4paf1lrZDU1lCRijf8tLFdbck6yFddXjX3FoSAVBi13k9aPmc89cVAiIzDQ/E5LMD0kpTWMxShNQIDAQAB-----END PUBLIC KEY-----"
-    // publicKey: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCF7Sh46Nn0veiDrSIuEq7b8MI1QFMNH/Ec8vEp83rUK1msBBnc3Ohi3nXypSQffcf8rND4BTCTEE2jXKIvzjJ5yVpg8d0bFn4paf1lrZDU1lCRijf8tLFdbck6yFddXjX3FoSAVBi13k9aPmc89cVAiIzDQ/E5LMD0kpTWMxShNQIDAQAB"
+    publicKey: "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCF7Sh46Nn0veiDrSIuEq7b8MI1QFMNH/Ec8vEp83rUK1msBBnc3Ohi3nXypSQffcf8rND4BTCTEE2jXKIvzjJ5yVpg8d0bFn4paf1lrZDU1lCRijf8tLFdbck6yFddXjX3FoSAVBi13k9aPmc89cVAiIzDQ/E5LMD0kpTWMxShNQIDAQAB-----END PUBLIC KEY-----",
+    resultData: {}
 })
 
 export const mutations = {
@@ -10,6 +10,9 @@ export const mutations = {
     },
     SET_XKEY(state, xkey) {
         state.xkey = xkey
+    },
+    SET_RESULT(state, result) {
+        state.resultData = result
     }
 }
 
@@ -20,7 +23,7 @@ export const actions = {
         const digits = "1234567890"
         const chars = lower + upper + digits
         let tikit = ''
-        for (let i=0; i<16; i++) {
+        for (let i = 0; i < 16; i++) {
             tikit += chars.charAt(Math.floor(Math.random() * chars.length))
         }
         commit('SET_TICKET', tikit)
@@ -30,20 +33,44 @@ export const actions = {
         const res = await this.$axios.get('/api/sessions')
         return res
     },
-    async getCourses({}, sessionId) {
+    async getCourses({ }, sessionId) {
         const res = await this.$axios.post('/api/course', { examSession: sessionId })
         return res
     },
-    async getExams({}, payload) {
+    async getExams({ }, payload) {
         const res = await this.$axios.post('/api/exam', { examSession: payload.sessionId, examType: payload.course })
         return res
+    },
+    async getResult({ commit }, payload) {
+        const res = await this.$axios.post('/api/result', { enrollment: payload.enrollment, examId: payload.examid })
+        commit('SET_RESULT', res.data)
+        console.log(res.data)
     }
 }
-import axios from 'axios'
-axios.post('', '', {  })
 
 export const getters = {
-    xKey(state) {
-        return state.xKey
+    studentName(state) {
+        return state.resultData.name
+    },
+    studentExam(state) {
+        return state.resultData.extype + " - " + state.resultData.CourseName
+    },
+    studentBranch(state) {
+        return ""
+    },
+    enrollment(state) {
+        return state.resultData.enrollment
+    },
+    seatNo(state) {
+        return state.resultData.ExamNumber
+    },
+    declared(state) {
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+          "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+        ]
+        const date = new Date(state.resultData.DECLARATIONDATE)
+        return ('0' + date.getDate()).slice(-2) + ' '
+            + (monthNames[date.getMonth()]) + ' '
+            + date.getFullYear()
     }
 }

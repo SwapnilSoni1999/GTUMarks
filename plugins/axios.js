@@ -21,7 +21,6 @@ export default function ({ $axios, store }) {
             console.log("Data", data)
             const key = Crypto.enc.Utf8.parse(store.state.ticket)
             const iv = Crypto.enc.Hex.parse('0000000000000000')
-            // const encrypted = Crypto.AES.encrypt(Crypto.enc.Utf8.parse(JSON.stringify(data)), key, { mode: Crypto.mode.CBC, iv: iv })
             const encrypted = Crypto.AES.encrypt(Crypto.enc.Utf8.parse(data), key, { mode: Crypto.mode.CBC, iv: iv, padding: Crypto.pad.Pkcs7 })
             ctx.data = Crypto.enc.Base64.stringify(encrypted.ciphertext)
             console.log("encrypted", ctx.data)

@@ -1,7 +1,7 @@
 <template>
   <div class="row search_contain">
     <div class="col">
-      <form class="search">
+      <form @submit.prevent="onSubmit" class="search">
         <h2>
           <i class="fa fa-search" aria-hidden="true"></i> SEARCH RESULT :
         </h2>
@@ -43,7 +43,7 @@
             <option
               v-for="(exm, index) in exams"
               :key="index"
-              :value="exm.examId"
+              :value="exm.examid"
             >{{ exm.exam }}</option>
           </select>
         </div>
@@ -52,19 +52,19 @@
           <div class="input-group-prepend">
             <label class="input-group-text">Enroll No.</label>
           </div>
-          <input type="text" class="form-control" />
+          <input type="text" v-model="enrollment" class="form-control" />
         </div>
-        <div class="text-center">Or</div>
+        <!-- <div class="text-center">Or</div> -->
         <!-- Seat Number -->
-        <div class="input-group my-3">
+        <!-- <div class="input-group my-3">
           <div class="input-group-prepend">
             <label class="input-group-text">Seat No.</label>
           </div>
-          <input type="text" class="form-control" />
-        </div>
+          <input type="text" v-model="seatNum" class="form-control" />
+        </div> -->
         <!-- Search Button -->
         <div class="text-center">
-          <button class="btn my_btn">
+          <button type="submit" class="btn my_btn">
             <i class="fa fa-search" aria-hidden="true"></i> Search
           </button>
         </div>
@@ -82,7 +82,9 @@ export default {
     courses: [],
     currCourse: "1",
     exams: [],
-    currExam: "1"
+    currExam: "1",
+    enrollment: '',
+    seatNum: ''
   }),
   async created() {
     const res = await this.getSessions();
@@ -103,7 +105,8 @@ export default {
     ...mapActions({
       getSessions: "getSessions",
       getCourses: "getCourses",
-      getExams: "getExams"
+      getExams: "getExams",
+      getResult: "getResult"
     }),
     async loadBranch() {
       const res = await this.getCourses(this.currSession)
@@ -114,6 +117,9 @@ export default {
       const res = await this.getExams({ course: this.currCourse, sessionId: this.currSession })
       this.exams = res.data
       console.log(res.data)
+    },
+    async onSubmit() {
+      const res = await this.getResult({ enrollment: this.enrollment, examid: this.currExam })
     }
   },
 };
