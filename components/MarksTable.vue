@@ -34,91 +34,35 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">2160001</th>
-          <td>Software Engineering</td>
+        <tr v-for="sub in subjects" :key="sub.sub">
+          <th scope="row">{{ sub.sub }}</th>
+          <td>{{ sub.subNA }}</td>
           <td>-</td>
           <td>
-            <table>
+            <table class="child-shift-td">
               <tbody>
+                <!-- theory grade -->
                 <tr>
-                  <td>BC</td>
-                  <td>AB</td>
-                  <td>BB</td>
+                  <td>{{ sub.subGRE ? sub.subGRE : "-" }}</td> <!-- ese -->
+                  <td>{{ sub.subGRM ? sub.subGRM : "-" }}</td> <!-- pa -->
+                  <td>{{ sub.subGRTH ? sub.subGRTH : "-" }}</td> <!-- total -->
                 </tr>
               </tbody>
             </table>
           </td>
           <td>
-            <table>
+            <table class="child-shift-td">
               <tbody>
+                <!-- practical grade -->
                 <tr>
-                  <td>BC</td>
-                  <td>AB</td>
-                  <td>BB</td>
+                  <td>{{ sub.subGRV ? sub.subGRV : "-" }}</td> <!-- ese -->
+                  <td>{{ sub.subGRI ? sub.subGRI : "-" }}</td> <!-- pa -->
+                  <td>{{ sub.subGRPR ? sub.subGRPR : "-" }}</td> <!-- total -->
                 </tr>
               </tbody>
             </table>
           </td>
-          <td>AA</td>
-        </tr>
-
-        <tr>
-          <th scope="row">2160001</th>
-          <td>Software Engineering</td>
-          <td>-</td>
-          <td>
-            <table>
-              <tbody>
-                <tr>
-                  <td>BC</td>
-                  <td>AB</td>
-                  <td>BB</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td>
-            <table>
-              <tbody>
-                <tr>
-                  <td>BC</td>
-                  <td>AB</td>
-                  <td>BB</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td>AA</td>
-        </tr>
-
-        <tr>
-          <th scope="row">2160001</th>
-          <td>Software Engineering</td>
-          <td>-</td>
-          <td>
-            <table>
-              <tbody>
-                <tr>
-                  <td>BC</td>
-                  <td>AB</td>
-                  <td>BB</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td>
-            <table>
-              <tbody>
-                <tr>
-                  <td>BC</td>
-                  <td>AB</td>
-                  <td>BB</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td>AA</td>
+          <td>{{ sub.subGR }}</td>
         </tr>
       </tbody>
     </table>
@@ -126,17 +70,43 @@
 </template>
 
 <script>
+/* 
+  Mapping
+
+  (theory)
+  subGRE = subject grade ESE
+  subGRM = subject grade PA
+  subGRTH = subject Grade Theory (total)
+
+  (practical)
+  subGRV = ssubject grade ESE
+  subGRI = subject grade PA
+  subGRPR = subject practical total 
+
+  (final)
+  subGR = total marks
+*/
+
 import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      gotResult: 'gotResult'
+      gotResult: 'gotResult',
+      subjects: 'subjects'
     })
   }
 }
 </script>
 
 <style scoped>
+.table_wrapper table thead tr > th {
+  vertical-align: middle;
+}
+
+.table_wrapper table tbody tr > * {
+  vertical-align: middle;
+}
+
 table {
   text-align: center;
 }
@@ -145,10 +115,20 @@ table {
   display: none;
 }
 
-@media (min-width: 1200px){
-  .shift-td {
-    display: block;
-    padding-right: 20%;
-  }
+.shift-td {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+.shift-td + table {
+  margin: 0 auto;
+}
+
+.child-shift-td {
+  margin: 0 auto;
+}
+
+.child-shift-td td {
+  padding-right: 1.5rem !important;
 }
 </style>

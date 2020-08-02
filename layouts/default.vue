@@ -95,7 +95,7 @@ body {
 }
 
 .table_wrapper {
-  margin: 60px 0;
+  margin: 60px 0 30px;
   border: 1px solid #e1e1e1;
   box-shadow: 0 5px 20px -4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;

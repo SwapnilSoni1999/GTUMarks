@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "export": "nuxt export",
-    "serve": "nuxt serve"
+    "serve": "nuxt serve",
+    "host:port": "nuxt --hostname 0.0.0.0 --port 3000"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",

@@ -4,7 +4,7 @@
       <div class="box">
         <h2>Student Info :</h2>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-md-6">
             <!-- Student Name -->
             <div class="input-group my-3">
               <div>
@@ -13,7 +13,7 @@
               <input type="text" class="form-control student_data" :value="studentName" disabled />
             </div>
             <!-- Exam Name -->
-            <div class="input-group my-3">
+            <div class="input-group mt-3 mb-md-3">
               <div>
                 <label class="input-group-text" for="session">Exam</label>
               </div>
@@ -37,7 +37,7 @@
               />
             </div> -->
           </div>
-          <div class="col-sm-6">
+          <div class="col-md-6">
             <!-- Enroll Number -->
             <div class="input-group my-3">
               <div>
@@ -85,3 +85,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .input-group-text {
+    width: 6.9rem;
+    justify-content: center;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .student_info .input-group input {
+    border: 1px solid #ccc;
+  } 
+</style>

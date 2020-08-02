@@ -75,5 +75,23 @@ export const getters = {
         return ('0' + date.getDate()).slice(-2) + ' '
             + (monthNames[date.getMonth()]) + ' '
             + date.getFullYear()
+    },
+    subjects(state) {
+        return state.resultData.subjects
+    },
+    currSemBack(state) {
+        return state.resultData.CURBACKL
+    },
+    totalBacks(state) {
+        return state.resultData.TOTBACKL
+    },
+    spi(state) {
+        return state.resultData.SPI
+    },
+    cpi(state) {
+        return state.resultData.CPI
+    },
+    cgpa(state) {
+        return state.resultData.CGPA
     }
 }

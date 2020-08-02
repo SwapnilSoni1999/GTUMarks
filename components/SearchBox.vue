@@ -52,7 +52,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text">Enroll No.</label>
           </div>
-          <input type="text" v-model="enrollment" class="form-control" />
+          <input type="text" v-model="enrollment" class="form-control" inputmode="numeric" />
         </div>
         <!-- <div class="text-center">Or</div> -->
         <!-- Seat Number -->
@@ -87,19 +87,21 @@ export default {
     seatNum: ''
   }),
   async created() {
-    const res = await this.getSessions();
-    for (let data of res.data) {
-      let name = "";
-      if (data.stype.toUpperCase() === 'S') {
-        name = "Summer ";
-      } else if (data.stype.toUpperCase() === 'W') {
-        name = "Winter ";
+    if (process.client) {
+      const res = await this.getSessions();
+      for (let data of res.data) {
+        let name = ""
+        if (data.stype.toUpperCase() === 'S') {
+          name = "Summer "
+        } else if (data.stype.toUpperCase() === 'W') {
+          name = "Winter "
+        }
+        name += data.exyear
+        data.name = name
+        this.sessions.push(data);
       }
-      name += data.exyear;
-      data.name = name;
-      this.sessions.push(data);
+      console.log(this.sessions)
     }
-    console.log(this.sessions)
   },
   methods: {
     ...mapActions({
