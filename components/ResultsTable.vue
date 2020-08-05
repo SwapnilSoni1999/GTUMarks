@@ -50,6 +50,7 @@
             </div>
           </div>
         </div>
+        <div class="alert text-centerx" :class="passed ? 'alert-success' : 'alert-danger'" role="alert">{{ statusMsg }}</div>
       </div>
     </div>
   </div>
@@ -58,6 +59,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  name: 'infoBox',
   computed: {
     ...mapGetters({
       gotResult: "gotResult",
@@ -65,9 +67,11 @@ export default {
       totalBacks: "totalBacks",
       spi: "spi",
       cpi: "cpi",
-      cgpa: "cgpa"
+      cgpa: "cgpa",
+      statusMsg: 'statusMsg',
+      passed: 'passed'
     }),
-  },
+  }
 };
 </script>
 

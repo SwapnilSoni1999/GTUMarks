@@ -92,5 +92,11 @@ export const getters = {
     },
     cgpa(state) {
         return state.resultData.CGPA
+    },
+    passed(state) {
+        return state.resultData.RESULT === 'PASS'
+    },
+    statusMsg(state) {
+        return state.resultData.RESULT === 'PASS' ? "Congratulations! You have passed the exam." : "Sorry! You've failed the exam."
     }
 }

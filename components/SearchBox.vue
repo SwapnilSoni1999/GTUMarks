@@ -11,7 +11,7 @@
         <!-- Session -->
         <div class="input-group my-3">
           <div class="input-group-prepend">
-            <label class="input-group-text" for="session">Session</label>
+            <label class="input-group-text">Session</label>
           </div>
           <select
             :disabled="!sessions.length"
@@ -78,7 +78,7 @@
           />
         </div>
         <small v-if="showErr" class="d-block">
-          <div class="alert alert-danger" role="alert">{{ errMsg }}</div>
+          <div class="alert alert-warning" role="alert">{{ errMsg }}</div>
         </small>
 
         <!-- <div class="text-center">Or</div> -->
@@ -228,6 +228,9 @@ export default {
         });
         // reset the form
         this.$el.querySelector('form').reset()
+        const el = this.$parent.$el.querySelector('.student_info')
+        const rect = el.getBoundingClientRect()
+        window.scrollTo(rect.left, rect.top)
       } catch(err) {
         this.errMsg = err.response.data.message
         this.showErr = true

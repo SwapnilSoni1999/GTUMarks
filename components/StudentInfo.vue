@@ -8,14 +8,14 @@
             <!-- Student Name -->
             <div class="input-group my-3">
               <div>
-                <label class="input-group-text" for="session">Name</label>
+                <label class="input-group-text">Name</label>
               </div>
               <input type="text" class="form-control student_data" :value="studentName" disabled />
             </div>
             <!-- Exam Name -->
             <div class="input-group mt-3 mb-md-3">
               <div>
-                <label class="input-group-text" for="session">Exam</label>
+                <label class="input-group-text">Exam</label>
               </div>
               <input
                 type="text"
@@ -27,7 +27,7 @@
             <!-- Branch Name -->
             <!-- <div class="input-group my-3">
               <div>
-                <label class="input-group-text" for="session">Branch</label>
+                <label class="input-group-text">Branch</label>
               </div>
               <input
                 type="text"
@@ -41,21 +41,21 @@
             <!-- Enroll Number -->
             <div class="input-group my-3">
               <div>
-                <label class="input-group-text" for="session">Enroll No.</label>
+                <label class="input-group-text">Enroll No.</label>
               </div>
               <input type="text" class="form-control student_data" :value="enrollment" disabled />
             </div>
             <!-- Seat Number -->
             <div class="input-group my-3">
               <div>
-                <label class="input-group-text" for="session">Seat No.</label>
+                <label class="input-group-text">Seat No.</label>
               </div>
               <input type="text" class="form-control student_data" :value="seatNo" disabled />
             </div>
             <!-- Declare On -->
             <div class="input-group my-3">
               <div>
-                <label class="input-group-text" for="session">Declared On</label>
+                <label class="input-group-text">Declared On</label>
               </div>
               <input type="text" class="form-control student_data" :value="declareDate" disabled />
             </div>
