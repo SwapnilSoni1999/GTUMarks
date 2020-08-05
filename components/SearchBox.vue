@@ -129,7 +129,6 @@ export default {
         data.name = name;
         this.sessions.push(data);
       }
-      console.log(this.sessions);
     }
   },
   computed: {
@@ -162,7 +161,6 @@ export default {
       }
       this.showErr = false;
       const res = await this.getCourses(this.currSession);
-      console.log(res.data);
       this.courses = res.data;
     },
     async loadExam() {
@@ -183,7 +181,6 @@ export default {
         sessionId: this.currSession,
       });
       this.exams = res.data;
-      console.log(res.data);
     },
     async checkExam() {
       if (this.currExam == "1") {

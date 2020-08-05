@@ -27,7 +27,6 @@ export const actions = {
             tikit += chars.charAt(Math.floor(Math.random() * chars.length))
         }
         commit('SET_TICKET', tikit)
-        console.log("Ticket", tikit)
     },
     async getSessions() {
         const res = await this.$axios.get('/api/sessions')
