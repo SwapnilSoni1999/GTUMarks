@@ -50,7 +50,7 @@
             </div>
           </div>
         </div>
-        <div class="alert text-centerx" :class="passed ? 'alert-success' : 'alert-danger'" role="alert">{{ statusMsg }}</div>
+        <div class="alert text-center" :class="passed ? 'alert-success' : 'alert-danger'" role="alert">{{ statusMsg }}</div>
       </div>
     </div>
   </div>
