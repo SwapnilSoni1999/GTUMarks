@@ -44,7 +44,6 @@ export const actions = {
     async getResult({ commit }, payload) {
         const res = await this.$axios.post('/api/result', { enrollment: payload.enrollment, examId: payload.examid })
         commit('SET_RESULT', res.data)
-        console.log(res.data)
     }
 }
 

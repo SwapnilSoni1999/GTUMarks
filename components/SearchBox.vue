@@ -2,6 +2,9 @@
   <div class="row search_contain">
     <div class="col">
       <form @submit.prevent="onSubmit" class="search">
+        <div style="margin: 0 auto; display:block;" v-if="!sessions.length" class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
         <h2>
           <i class="fa fa-search" aria-hidden="true"></i> SEARCH RESULT :
         </h2>
@@ -10,7 +13,13 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="session">Session</label>
           </div>
-          <select @change="loadBranch" class="custom-select" v-model="currSession" id="session">
+          <select
+            :disabled="!sessions.length"
+            @change="loadBranch"
+            class="custom-select"
+            v-model="currSession"
+            id="session"
+          >
             <option selected value="1">Choose...</option>
             <option
               v-for="(sess, index) in sessions"
@@ -24,7 +33,13 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="course">Course</label>
           </div>
-          <select @change="loadExam" class="custom-select" v-model="currCourse" id="course">
+          <select
+            :disabled="!courses.length"
+            @change="loadExam"
+            class="custom-select"
+            v-model="currCourse"
+            id="course"
+          >
             <option selected value="1">Choose...</option>
             <option
               v-for="(brch, index) in courses"
@@ -38,13 +53,15 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="exams">Exam</label>
           </div>
-          <select class="custom-select" v-model="currExam" id="exams">
+          <select
+            @change="checkExam"
+            :disabled="!exams.length"
+            class="custom-select"
+            v-model="currExam"
+            id="exams"
+          >
             <option value="1" selected>Choose...</option>
-            <option
-              v-for="(exm, index) in exams"
-              :key="index"
-              :value="exm.examid"
-            >{{ exm.exam }}</option>
+            <option v-for="(exm, index) in exams" :key="index" :value="exm.examid">{{ exm.exam }}</option>
           </select>
         </div>
         <!-- Enrollment -->
@@ -52,8 +69,18 @@
           <div class="input-group-prepend">
             <label class="input-group-text">Enroll No.</label>
           </div>
-          <input type="text" v-model="enrollment" class="form-control" inputmode="numeric" />
+          <input
+            :disabled="allowedForEnr"
+            type="text"
+            v-model="enrollment"
+            class="form-control"
+            inputmode="numeric"
+          />
         </div>
+        <small v-if="showErr" class="d-block">
+          <div class="alert alert-danger" role="alert">{{ errMsg }}</div>
+        </small>
+
         <!-- <div class="text-center">Or</div> -->
         <!-- Seat Number -->
         <!-- <div class="input-group my-3">
@@ -61,10 +88,10 @@
             <label class="input-group-text">Seat No.</label>
           </div>
           <input type="text" v-model="seatNum" class="form-control" />
-        </div> -->
+        </div>-->
         <!-- Search Button -->
         <div class="text-center">
-          <button type="submit" class="btn my_btn">
+          <button :disabled="enableSearch" type="submit" class="btn my_btn">
             <i class="fa fa-search" aria-hidden="true"></i> Search
           </button>
         </div>
@@ -83,46 +110,121 @@ export default {
     currCourse: "1",
     exams: [],
     currExam: "1",
-    enrollment: '',
-    seatNum: ''
+    enrollment: "",
+    seatNum: "",
+    showErr: false,
+    enableSearch: false,
+    errMsg: "Please choose valid option from dropdown.",
   }),
   async created() {
     if (process.client) {
       const res = await this.getSessions();
       for (let data of res.data) {
-        let name = ""
-        if (data.stype.toUpperCase() === 'S') {
-          name = "Summer "
-        } else if (data.stype.toUpperCase() === 'W') {
-          name = "Winter "
+        let name = "";
+        if (data.stype.toUpperCase() === "S") {
+          name = "Summer ";
+        } else if (data.stype.toUpperCase() === "W") {
+          name = "Winter ";
         }
-        name += data.exyear
-        data.name = name
+        name += data.exyear;
+        data.name = name;
         this.sessions.push(data);
       }
-      console.log(this.sessions)
+      console.log(this.sessions);
     }
+  },
+  computed: {
+    allowedForEnr() {
+      if (
+        this.currSession != "1" &&
+        this.currCourse != "1" &&
+        this.currExam != "1"
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   methods: {
     ...mapActions({
       getSessions: "getSessions",
       getCourses: "getCourses",
       getExams: "getExams",
-      getResult: "getResult"
+      getResult: "getResult",
     }),
     async loadBranch() {
-      const res = await this.getCourses(this.currSession)
-      console.log(res.data)
-      this.courses = res.data
+      if (this.currSession == "1") {
+        this.errMsg = "Please choose valid session!";
+        this.showErr = true;
+        return;
+      }
+      this.showErr = false;
+      const res = await this.getCourses(this.currSession);
+      console.log(res.data);
+      this.courses = res.data;
     },
     async loadExam() {
-      const res = await this.getExams({ course: this.currCourse, sessionId: this.currSession })
-      this.exams = res.data
-      console.log(res.data)
+      if (this.currCourse == "1") {
+        this.errMsg = "Please choose valid course!";
+        this.showErr = true;
+        return;
+      }
+      if (this.currSession == "1") {
+        this.errMsg = "Please choose valid session!";
+        this.showErr = true;
+        return;
+      }
+      this.showErr = false;
+      const res = await this.getExams({
+        course: this.currCourse,
+        sessionId: this.currSession,
+      });
+      this.exams = res.data;
+      console.log(res.data);
+    },
+    async checkExam() {
+      if (this.currExam == "1") {
+        this.errMsg = "Please choose valid exam!";
+        this.showErr = true;
+        return;
+      }
+      this.showErr = false;
     },
     async onSubmit() {
-      const res = await this.getResult({ enrollment: this.enrollment, examid: this.currExam })
-    }
+      if (this.currSession == "1") {
+        this.errMsg = "Please choose valid session!";
+        this.showErr = true;
+        return;
+      }
+      if (this.currCourse == "1") {
+        this.errMsg = "Please choose valid course!";
+        this.showErr = true;
+        return;
+      }
+      if (this.currExam == "1") {
+        this.errMsg = "Please choose valid exam!";
+        this.showErr = true;
+        return;
+      }
+      const isNum = /^\d+$/g.test(this.enrollment)
+      
+      if (!isNum) {
+        this.errMsg = "Only digits are allowed for enrollment.";
+        this.showErr = true;
+        return
+      }
+
+      if (this.showErr) {
+        this.errMsg = "Please check issues in your selection and then submit."
+      }
+      this.showErr = false;
+      this.enableSearch = true;
+      const res = await this.getResult({
+        enrollment: this.enrollment,
+        examid: this.currExam,
+      });
+    },
   },
 };
 </script>
