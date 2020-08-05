@@ -91,7 +91,7 @@
         </div>-->
         <!-- Search Button -->
         <div class="text-center">
-          <button :disabled="enableSearch" type="submit" class="btn my_btn">
+          <button type="submit" class="btn my_btn">
             <i class="fa fa-search" aria-hidden="true"></i> Search
           </button>
         </div>
@@ -113,7 +113,6 @@ export default {
     enrollment: "",
     seatNum: "",
     showErr: false,
-    enableSearch: false,
     errMsg: "Please choose valid option from dropdown.",
   }),
   async created() {
@@ -154,6 +153,8 @@ export default {
       getResult: "getResult",
     }),
     async loadBranch() {
+      this.currCourse = "1"
+      this.currExam = "1"
       if (this.currSession == "1") {
         this.errMsg = "Please choose valid session!";
         this.showErr = true;
@@ -165,6 +166,7 @@ export default {
       this.courses = res.data;
     },
     async loadExam() {
+      this.currExam = "1"
       if (this.currCourse == "1") {
         this.errMsg = "Please choose valid course!";
         this.showErr = true;
@@ -219,11 +221,17 @@ export default {
         this.errMsg = "Please check issues in your selection and then submit."
       }
       this.showErr = false;
-      this.enableSearch = true;
-      const res = await this.getResult({
-        enrollment: this.enrollment,
-        examid: this.currExam,
-      });
+      try {
+        const res = await this.getResult({
+          enrollment: this.enrollment,
+          examid: this.currExam,
+        });
+        // reset the form
+        this.$el.querySelector('form').reset()
+      } catch(err) {
+        this.errMsg = err.response.data.message
+        this.showErr = true
+      }
     },
   },
 };
