@@ -244,7 +244,7 @@ export default {
         this.resetVals()
         const el = this.$parent.$el.querySelector('.student_info')
         const rect = el.getBoundingClientRect()
-        window.scrollTo(rect.left, rect.top + 10)
+        window.scrollTo(rect.left, rect.top - 50)
         this.showLoader = false
       } catch(err) {
         this.errMsg = err.response.data.message
