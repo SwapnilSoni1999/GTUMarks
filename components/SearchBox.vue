@@ -241,11 +241,10 @@ export default {
           examid: this.currExam,
         });
         // reset the form
-        this.$el.querySelector('form').reset()
         this.resetVals()
         const el = this.$parent.$el.querySelector('.student_info')
         const rect = el.getBoundingClientRect()
-        window.scrollTo(rect.left, rect.top - 10)
+        window.scrollTo(rect.left, rect.top + 10)
         this.showLoader = false
       } catch(err) {
         this.errMsg = err.response.data.message
