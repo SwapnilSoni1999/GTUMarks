@@ -154,7 +154,6 @@ export default {
       getResult: "getResult",
     }),
     resetVals() {
-      this.sessions = []
       this.currSession = "1"
       this.courses = []
       this.currCourse = "1"
