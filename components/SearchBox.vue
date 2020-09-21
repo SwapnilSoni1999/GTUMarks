@@ -151,6 +151,17 @@ export default {
       getExams: "getExams",
       getResult: "getResult",
     }),
+    resetVals() {
+      this.sessions = []
+      this.currSession = "1"
+      this.courses = []
+      this.currCourse = "1"
+      this.exams = []
+      this.currExam = "1"
+      this.enrollment = ""
+      this.seatNum = ""
+      this.showErr = false
+    },
     async loadBranch() {
       this.currCourse = "1"
       this.currExam = "1"
@@ -225,6 +236,7 @@ export default {
         });
         // reset the form
         this.$el.querySelector('form').reset()
+        this.resetVals()
         const el = this.$parent.$el.querySelector('.student_info')
         const rect = el.getBoundingClientRect()
         window.scrollTo(rect.left, rect.top)

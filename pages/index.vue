@@ -3,7 +3,7 @@
     <div class="my_container">
       <div class="row justify-content-end justify-sm-content-end">
         <div class="col-3 text-right">
-          <img src="http://gturesults.in/Images/logo.png" />
+          <img src="~/assets/logo.png" />
         </div>
         <div class="col-8 col-sm-9">
           <h1 class="head">Gujarat Technological University Ahmedabad</h1>

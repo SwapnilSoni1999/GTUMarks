@@ -8,9 +8,6 @@
 html {
   scroll-behavior: smooth;
 }
-body {
-  /* font-family: Muli; */
-}
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;              /* width of the entire scrollbar */
