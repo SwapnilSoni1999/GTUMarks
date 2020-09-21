@@ -2,7 +2,7 @@
   <div class="row search_contain">
     <div class="col">
       <form @submit.prevent="onSubmit" class="search">
-        <div style="margin: 0 auto; display:block;" v-if="!sessions.length" class="spinner-border" role="status">
+        <div style="margin: 0 auto; display:block;" v-if="showLoader" class="spinner-border" role="status">
           <span class="sr-only">Loading...</span>
         </div>
         <h2>
@@ -104,6 +104,7 @@
 import { mapActions } from "vuex";
 export default {
   data: () => ({
+    showLoader: true,
     sessions: [],
     currSession: "1",
     courses: [],
@@ -128,6 +129,7 @@ export default {
         name += data.exyear;
         data.name = name;
         this.sessions.push(data);
+        this.showLoader = false
       }
     }
   },
@@ -171,8 +173,10 @@ export default {
         return;
       }
       this.showErr = false;
+      this.showLoader = true
       const res = await this.getCourses(this.currSession);
       this.courses = res.data;
+      this.showLoader = false
     },
     async loadExam() {
       this.currExam = "1"
@@ -187,11 +191,13 @@ export default {
         return;
       }
       this.showErr = false;
+      this.showLoader = true
       const res = await this.getExams({
         course: this.currCourse,
         sessionId: this.currSession,
       });
       this.exams = res.data;
+      this.showLoader = false
     },
     async checkExam() {
       if (this.currExam == "1") {
@@ -230,6 +236,7 @@ export default {
       }
       this.showErr = false;
       try {
+        this.showLoader = true
         const res = await this.getResult({
           enrollment: this.enrollment,
           examid: this.currExam,
@@ -239,10 +246,12 @@ export default {
         this.resetVals()
         const el = this.$parent.$el.querySelector('.student_info')
         const rect = el.getBoundingClientRect()
-        window.scrollTo(rect.left, rect.top)
+        window.scrollTo(rect.left, rect.top - 10)
+        this.showLoader = false
       } catch(err) {
         this.errMsg = err.response.data.message
         this.showErr = true
+        this.showLoader = false
       }
     },
   },
