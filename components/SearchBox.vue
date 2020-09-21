@@ -152,6 +152,7 @@ export default {
       getCourses: "getCourses",
       getExams: "getExams",
       getResult: "getResult",
+      clearStore: "clearStore"
     }),
     resetVals() {
       this.currSession = "1"
@@ -207,6 +208,7 @@ export default {
       this.showErr = false;
     },
     async onSubmit() {
+      this.clearStore()
       if (this.currSession == "1") {
         this.errMsg = "Please choose valid session!";
         this.showErr = true;
