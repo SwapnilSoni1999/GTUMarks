@@ -9,7 +9,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: Muli;
+  /* font-family: Muli; */
 }
 ::-webkit-scrollbar {
   width: 4px;
