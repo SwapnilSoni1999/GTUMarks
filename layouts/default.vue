@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="notice">This is not the official website of GTU. It is our sincere effort to help you.</div>
     <Nuxt />
   </div>
 </template>
@@ -110,5 +111,13 @@ html {
 .result_table td > table tr,
 .result_table th > table tr {
   background-color: transparent !important;
+}
+
+.notice {
+  width: 100%;
+  text-align: center;
+  background-color: #e1e1e1;
+  border-bottom: 4px #f1f1f1 solid;
+  font-size: 0.8rem;
 }
 </style>
