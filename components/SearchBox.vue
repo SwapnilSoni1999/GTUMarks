@@ -243,7 +243,7 @@ export default {
           examid: this.currExam,
         });
         // reset the form
-        this.resetVals()
+        // this.resetVals()
         const el = this.$parent.$el.querySelector('.student_info')
         const rect = el.getBoundingClientRect()
         window.scrollTo(rect.left, rect.top - 50)
