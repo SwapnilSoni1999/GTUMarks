@@ -1,3 +1,5 @@
+import getBranchByCode from 'gtu-api/utils/branchById'
+
 export const state = () => ({
     ticket: '',
     publicKey: "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCF7Sh46Nn0veiDrSIuEq7b8MI1QFMNH/Ec8vEp83rUK1msBBnc3Ohi3nXypSQffcf8rND4BTCTEE2jXKIvzjJ5yVpg8d0bFn4paf1lrZDU1lCRijf8tLFdbck6yFddXjX3FoSAVBi13k9aPmc89cVAiIzDQ/E5LMD0kpTWMxShNQIDAQAB-----END PUBLIC KEY-----",
@@ -42,10 +44,14 @@ export const actions = {
     },
     async getResult({ commit }, payload) {
         const res = await this.$axios.post('/api/result', { enrollment: payload.enrollment, examId: payload.examid })
+        if (!res.data.BR_NAME) {
+            res.data.BR_NAME = getBranchByCode(res.data.BR_CODE).name
+        }
         commit('SET_RESULT', res.data)
+        console.log(res.data)
     },
     clearStore({ commit }) {
-        commit('Set_RESULT', {})
+        commit('SET_RESULT', {})
     }
 }
 
@@ -60,7 +66,7 @@ export const getters = {
         return state.resultData.extype + " - " + state.resultData.CourseName
     },
     studentBranch(state) {
-        return ""
+        return state.resultData.BR_NAME
     },
     enrollment(state) {
         return state.resultData.enrollment

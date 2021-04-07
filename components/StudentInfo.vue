@@ -25,7 +25,7 @@
               />
             </div>
             <!-- Branch Name -->
-            <!-- <div class="input-group my-3">
+            <div class="input-group mt-3 my-md-3">
               <div>
                 <label class="input-group-text">Branch</label>
               </div>
@@ -35,7 +35,7 @@
                 :value="studentBranch"
                 disabled
               />
-            </div> -->
+            </div>
           </div>
           <div class="col-md-6">
             <!-- Enroll Number -->
